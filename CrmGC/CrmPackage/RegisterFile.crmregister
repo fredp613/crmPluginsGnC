@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Register xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/crm/2011/tools/pluginregistration">
+  <Solutions>
+    <Solution Assembly="CrmGC.Plugins.dll" Id="7fe4fd30-a7e9-471c-99c1-bac03a819875" IsolationMode="Sandbox" SourceType="Database">
+      <PluginTypes>
+        <Plugin Description="Plug-in to PreFundCentreUpdate" FriendlyName="PreFundCentreUpdate" Name="CrmGC.Plugins.PreFundCentreUpdate" Id="b6409403-fef6-4fc0-9463-76ff558c374d" TypeName="CrmGC.Plugins.PreFundCentreUpdate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreFundCentreUpdate" Description="Pre-Operation of Fund Centre Update" Id="aeb97cea-703c-e511-80ef-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images>
+                <Image Attributes="gcbase_name,gcbase_fund,gcbase_startdate,gcbase_enddate,statecode,statuscode,gcbase_estimatedannualbudget,gcbase_datesvalidated" EntityAlias="fundcentre" Id="29de1bfd-0f3d-e511-80ef-005056a03443" MessagePropertyName="Target" ImageType="PreImage" />
+              </Images>
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostFundingCaseCreate" FriendlyName="PostFundingCaseCreate" Name="CrmGC.Plugins.PostFundingCaseCreate" Id="8779a54d-0a41-4fff-90b2-a8a7afa06704" TypeName="CrmGC.Plugins.PostFundingCaseCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostFundingCaseCreate" Description="Post-Operation of Funding Case Create" Id="e1fb9841-6852-e511-80f0-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcase" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images>
+                <Image Attributes="gcbase_amountsbyfiscalyearserver" EntityAlias="fundingcase" Id="b9cf934d-6b52-e511-80f0-005056a03443" MessagePropertyName="id" ImageType="PostImage" />
+              </Images>
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PreFundingCaseCreate" FriendlyName="PreFundingCaseCreate" Name="CrmGC.Plugins.PreFundingCaseCreate" Id="2b275747-345e-e511-80f0-005056a03443" TypeName="CrmGC.Plugins.PreFundingCaseCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreFundingCaseCreate" Description="Pre-Operation of Funding Case Create" Id="2c275747-345e-e511-80f0-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcase" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PreClientCreate" FriendlyName="PreClientCreate" Name="CrmGC.Plugins.PreClientCreate" Id="51db6701-5369-e511-80f1-005056a03443" TypeName="CrmGC.Plugins.PreClientCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreClientCreate" Description="Pre-Operation of Client Create" Id="52db6701-5369-e511-80f1-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_client" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+      </PluginTypes>
+    </Solution>
+  </Solutions>
+  <XamlWorkflows />
+</Register>
