@@ -52,55 +52,66 @@ namespace CrmGC.Plugins
             if (test != null) {
                 return test.GetAttributeValue<String>("gcbase_name");
             }
-            return "00000";
+            return "10000";
         }
 
         private string generateAutoNumber(string prefix, string lastNumber) {           
-            String autoNumber = "";
+           // String autoNumber = "";
             long numberForAppending = 0;
-
-            var indexEndOfPrefix = lastNumber.IndexOf("-");
-            var lastNumberWithoutPrefix = lastNumber.Substring(indexEndOfPrefix + 1);
-            string test = lastNumberWithoutPrefix.TrimStart('0');
-            int lastNumberLen = test.Length;
+            String lastNumberWithoutPrefix = "";
+            if (prefix != "") {
+                var indexEndOfPrefix = lastNumber.IndexOf("-");
+                lastNumberWithoutPrefix = lastNumber.Substring(indexEndOfPrefix + 1);
+            } else {
+                lastNumberWithoutPrefix = lastNumber;
+            }
+            
+            //string test = lastNumberWithoutPrefix.TrimStart('0');
+            //int lastNumberLen = test.Length;
             //FaultException ex1 = new faultexception();
             //throw new invalidPluginExecutionException(test, ex1);
-            if (lastNumber != "00000") {
+            //if (lastNumber != "00000") {
             
-             if (long.TryParse(test, out numberForAppending)) {
+            // if (long.TryParse(test, out numberForAppending)) {
                 
-                    switch (lastNumberLen)
-                    {
-                        case 1:
-                            autoNumber = "0000" + (numberForAppending + 1);
-                            break;
-                        case 2:
-                            autoNumber = "000" + (numberForAppending + 1);;
-                            break;
-                        case 3:
-                            autoNumber = "00" + (numberForAppending + 1);;
-                            break;
-                        case 4:
-                            autoNumber = "0" + (numberForAppending + 1);;
-                            break;
-                        case 5:
-                            autoNumber = (numberForAppending + 1).ToString();
-                            break;
-                        default:
-                            //autoNumber = numberForAppending + 1;
-                            break;
+            //        switch (lastNumberLen)
+            //        {
+            //            case 1:
+            //                autoNumber = "0000" + (numberForAppending + 1);
+            //                break;
+            //            case 2:
+            //                autoNumber = "000" + (numberForAppending + 1);;
+            //                break;
+            //            case 3:
+            //                autoNumber = "00" + (numberForAppending + 1);;
+            //                break;
+            //            case 4:
+            //                autoNumber = "0" + (numberForAppending + 1);;
+            //                break;
+            //            case 5:
+            //                autoNumber = (numberForAppending + 1).ToString();
+            //                break;
+            //            default:
+            //                //autoNumber = numberForAppending + 1;
+            //                break;
+            //        }
+            //    }
+
+            if (lastNumber != "10000") {
+                if (long.TryParse(lastNumberWithoutPrefix, out numberForAppending))
+                { 
+                    if (prefix != "") {
+                        return prefix + "-" + (numberForAppending + 1).ToString();
                     }
+                    return (numberForAppending + 1).ToString();
                 }
-             if (prefix != "") {
-                 return prefix + "-" + autoNumber.ToString();
-             }
-             return autoNumber.ToString();     
             }
+                        
             //first instance of the record
             if (prefix != "") {
-                return prefix + "-" + "00001";
+                return prefix + "-" + "10001";
             }
-            return "00001";
+            return "10001";
             
         }
         
