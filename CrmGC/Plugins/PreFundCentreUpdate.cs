@@ -266,42 +266,10 @@ namespace CrmGC.Plugins
                                     
 
                 if (param.startdate.HasValue && param.enddate.HasValue) {
-                    // this is somethign we can extract in a seperate class called fiscalyears or something
-                    int startMonth = param.startdate.Value.Month;
-                    int endMonth = param.enddate.Value.Month;
-                    int startYear = param.startdate.Value.Year;
-                    int endYear = param.enddate.Value.Year;
-                    int numberOfYears = (endYear - startYear);
-
-                    if (startMonth < 4)
-                    {
-                        if (endMonth > 4)
-                        {
-                            numberOfYears = numberOfYears + 2;
-                            endYear = endYear + 1;
-                        }
-                        else
-                        {
-                            numberOfYears = numberOfYears + 1;
-                        }
-                    }
-                    else
-                    {
-                        startYear = startYear + 1;
-                        if (endMonth > 4)
-                        {
-                            numberOfYears = numberOfYears + 1;
-                            endYear = endYear + 1;
-                        }
-                    }
-
-                    int[] fiscalYears = new int[numberOfYears];
-                    for (var i = 0; i < numberOfYears; i++)
-                    {
-                        fiscalYears[i] = startYear + i;
-                        //insert / update fiscal years
-                    }
-
+                    
+                    int[] fiscalYears = new FiscalYear(param.startdate.Value, param.enddate.Value).getFiscalYears();
+                 
+        
                     DataCollection<Entity> fundCentreBudgetsToDelete = service.RetrieveMultiple(existingFundCentreBudgets).Entities;
                     if (fundCentreBudgetsToDelete.Count > 0)
                     {
@@ -329,7 +297,7 @@ namespace CrmGC.Plugins
                     }
 
                     Array values = Enum.GetValues(typeof(goal_fiscalyear));
-                    string[] fys = new string[numberOfYears];
+                    string[] fys = new string[fiscalYears.Count()];
                     int index = 0;
 
                     //QueryExpression fundTypeQry = new QueryExpression
@@ -377,25 +345,7 @@ namespace CrmGC.Plugins
                             ctx.AddObject(fundCentreBudget);
                             ctx.SaveChanges();
                         }
-
-                        //if (param.grantAmount.Value > 0)
-                        //{
-                        //    Entity fundCentreBudget = new Entity("gcbase_fundcentrebudget");
-                        //    // fundCentreBudget.Id = Guid.NewGuid();
-                        //    fundCentreBudget["gcbase_amount"] = (Money)param.grantAmount;
-                        //    fys[index] = (string)Enum.GetName(typeof(goal_fiscalyear), year);
-                        //    OptionSetValue fy = new OptionSetValue();
-                        //    fy.Value = year;
-                        //    fundCentreBudget["gcbase_fiscalyear"] = fy;
-                        //    EntityReference fundCentre = new EntityReference("gcbase_fundcentre", param.id);
-                        //    fundCentreBudget["gcbase_fundcentre"] = fundCentre;
-                        //    EntityReference fundType = new EntityReference("gcbase_fundtype", grant);
-                        //    fundCentreBudget["gcbase_fundtype"] = fundType;
-                        //    // ctx.Attach(fundCentreBudget)
-                        //    ctx.AddObject(fundCentreBudget);
-                        //    ctx.SaveChanges();
-
-                        //}
+                   
                         index++;
                     }
                 

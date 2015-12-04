@@ -39,6 +39,30 @@
             </Step>
           </Steps>
         </Plugin>
+        <Plugin Description="Plug-in to PostFundCentreCreate" FriendlyName="PostFundCentreCreate" Name="CrmGC.Plugins.PostFundCentreCreate" Id="4b33b33b-af7c-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PostFundCentreCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostFundCentreCreate" Description="Post-Operation of Fund Centre Create" Id="4c33b33b-af7c-e511-80f2-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostISOSetupCreate" FriendlyName="PostISOSetupCreate" Name="CrmGC.Plugins.PostISOSetupCreate" Id="cad56418-f27c-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PostISOSetupCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostISOSetupCreate" Description="Post-Operation of ISO Setup Create" Id="cbd56418-f27c-e511-80f2-005056a03443" MessageName="Create" Mode="Asynchronous" PrimaryEntityName="gcbase_isosetup" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PreFundCentreRetrieve" FriendlyName="PreFundCentreRetrieve" Name="CrmGC.Plugins.PreFundCentreRetrieve" Id="59221bf2-b67d-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PreFundCentreRetrieve">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreFundCentreRetrieve" Description="Pre-Operation of Fund Centre Retrieve" Id="5a221bf2-b67d-e511-80f2-005056a03443" MessageName="Retrieve" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
       </PluginTypes>
     </Solution>
   </Solutions>

@@ -64,38 +64,7 @@ namespace CrmGC.Plugins
                 lastNumberWithoutPrefix = lastNumber.Substring(indexEndOfPrefix + 1);
             } else {
                 lastNumberWithoutPrefix = lastNumber;
-            }
-            
-            //string test = lastNumberWithoutPrefix.TrimStart('0');
-            //int lastNumberLen = test.Length;
-            //FaultException ex1 = new faultexception();
-            //throw new invalidPluginExecutionException(test, ex1);
-            //if (lastNumber != "00000") {
-            
-            // if (long.TryParse(test, out numberForAppending)) {
-                
-            //        switch (lastNumberLen)
-            //        {
-            //            case 1:
-            //                autoNumber = "0000" + (numberForAppending + 1);
-            //                break;
-            //            case 2:
-            //                autoNumber = "000" + (numberForAppending + 1);;
-            //                break;
-            //            case 3:
-            //                autoNumber = "00" + (numberForAppending + 1);;
-            //                break;
-            //            case 4:
-            //                autoNumber = "0" + (numberForAppending + 1);;
-            //                break;
-            //            case 5:
-            //                autoNumber = (numberForAppending + 1).ToString();
-            //                break;
-            //            default:
-            //                //autoNumber = numberForAppending + 1;
-            //                break;
-            //        }
-            //    }
+            }                       
 
             if (lastNumber != "10000") {
                 if (long.TryParse(lastNumberWithoutPrefix, out numberForAppending))

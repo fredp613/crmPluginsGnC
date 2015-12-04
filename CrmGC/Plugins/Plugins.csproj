@@ -57,10 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoNumbering.cs" />
+    <Compile Include="FiscalYear.cs" />
     <Compile Include="helpers\Predicates.cs" />
     <Compile Include="OptionSets.cs" />
+    <Compile Include="PostFundCentreCreate.cs" />
     <Compile Include="PostFundingCaseCreate.cs" />
+    <Compile Include="PostISOSetupCreate.cs" />
     <Compile Include="PreClientCreate.cs" />
+    <Compile Include="PreFundCentreRetrieve.cs" />
     <Compile Include="PreFundCentreUpdate.cs" />
     <Compile Include="PreFundingCaseCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

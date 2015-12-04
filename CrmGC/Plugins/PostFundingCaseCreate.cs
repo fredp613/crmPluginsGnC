@@ -67,6 +67,7 @@ namespace CrmGC.Plugins
                         
                         Entity fundingAmountByFY = new Entity("gcbase_fundingcaseamountbyfy");
                         string[] yearlyAmounts = entity.Attributes["gcbase_amountsbyfiscalyearserver"].ToString().Split(delimitedChar);
+                        EntityReference fundCentre = entity.GetAttributeValue<EntityReference>("gcbase_program");
                         foreach (string ya in yearlyAmounts)
                         {
 
@@ -83,6 +84,7 @@ namespace CrmGC.Plugins
                             fy.Value = Int32.Parse(yearStr);
                             fundingAmountByFY["gcbase_fiscalyear"] = fy;
                             fundingAmountByFY["gcbase_amount"] = amount;
+                            fundingAmountByFY["gcbase_fundcentre"] = fundCentre; //entity.GetAttributeValue<EntityReference>("gcbase_fundcentre");
 
                             //// Obtain the organization service reference.
                             IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
