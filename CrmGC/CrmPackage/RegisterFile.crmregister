@@ -8,7 +8,7 @@
             <clear />
             <Step CustomConfiguration="" Name="PreFundCentreUpdate" Description="Pre-Operation of Fund Centre Update" Id="aeb97cea-703c-e511-80ef-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
               <Images>
-                <Image Attributes="gcbase_name,gcbase_fund,gcbase_startdate,gcbase_enddate,statecode,statuscode,gcbase_estimatedannualbudget,gcbase_datesvalidated" EntityAlias="fundcentre" Id="29de1bfd-0f3d-e511-80ef-005056a03443" MessagePropertyName="Target" ImageType="PreImage" />
+                <Image Attributes="gcbase_name,gcbase_fund,gcbase_startdate,gcbase_enddate,statecode,statuscode,gcbase_estimatedannualbudget,gcbase_datesvalidated" EntityAlias="fundcentre" Id="e4ad51ec-c6d5-e511-80fd-005056a03443" MessagePropertyName="Target" ImageType="PreImage" />
               </Images>
             </Step>
           </Steps>
@@ -59,6 +59,48 @@
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PreFundCentreRetrieve" Description="Pre-Operation of Fund Centre Retrieve" Id="5a221bf2-b67d-e511-80f2-005056a03443" MessageName="Retrieve" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorCreate" FriendlyName="PostRiskTemplateRiskFactorCreate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate" Id="c3118c9d-f9d3-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostRiskTemplateRiskFactorCreate" Description="Post-Operation of Risk Template Risk Factor Create" Id="c4118c9d-f9d3-e511-80fd-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorUpdate" FriendlyName="PostRiskTemplateRiskFactorUpdate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate" Id="c7118c9d-f9d3-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostRiskTemplateRiskFactorUpdate" Description="Post-Operation of Risk Template Risk Factor Update" Id="c8118c9d-f9d3-e511-80fd-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images>
+                <Image Attributes="gcbase_name,statuscode,gcbase_risktemplate" EntityAlias="risktemplateriskfactor" Id="29de1bfd-0f3d-e511-80ef-005056a03443" MessagePropertyName="Target" ImageType="PostImage" />
+              </Images>
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PreRiskTemplateRiskFactorDelete" FriendlyName="PreRiskTemplateRiskFactorDelete" Name="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete" Id="f085b09b-a9d5-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreRiskTemplateRiskFactorDelete" Description="Pre-Operation of Risk Template Risk Factor Delete" Id="f185b09b-a9d5-e511-80fd-005056a03443" MessageName="Delete" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostRiskFactorValueUpdate" FriendlyName="PostRiskFactorValueUpdate" Name="CrmGC.Plugins.PostRiskFactorValueUpdate" Id="416e68f3-bbd5-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskFactorValueUpdate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostRiskFactorValueUpdate" Description="Post-Operation of Risk Factor Value Update" Id="426e68f3-bbd5-e511-80fd-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_riskfactorvalue" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PostFundingCaseRiskAssessmentCreate" FriendlyName="PostFundingCaseRiskAssessmentCreate" Name="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate" Id="cab71856-76da-e511-8100-005056a03443" TypeName="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PostFundingCaseRiskAssessmentCreate" Description="Post-Operation of Funding Case Risk Assessment Create" Id="cbb71856-76da-e511-8100-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcaseriskassessment" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
               <Images />
             </Step>
           </Steps>

@@ -82,14 +82,6 @@ namespace CrmGC.Plugins
             // Obtain the execution context from the service provider.
             IPluginExecutionContext context = localContext.PluginExecutionContext;
             IOrganizationService service = localContext.OrganizationService;
-            
-           
-           // ITracingService tracingService =
-           // (ITracingService)localContext.ServiceProvider.GetService(typeof(ITracingService));
-
-            
-            
-            
 
             // The InputParameters collection contains all the data passed in the message request.
             if (context.InputParameters.Contains("Target") &&
@@ -102,20 +94,22 @@ namespace CrmGC.Plugins
                 
                 if (entity.LogicalName == "gcbase_fundcentre")
                 {
+                   
                     //string fundTitle = "Freds first JUS plugin";
                     try
                     {
+                        
                         DateTime startDate;
                         DateTime endDate;
                         var preEntity = (Entity)context.PreEntityImages["fundcentre"];
-                        
+                     
                         // if not budget items exc
                         // if start or end date changes check if they fall with a new timeline, if yes excude below
                         // if not , throw plugin exception and show which budget lines are affected (custom methods here)
                         string statusReason = getCurrentStatus((int)preEntity.GetAttributeValue<OptionSetValue>("statuscode").Value);
                         //throw new InvalidPluginExecutionException("geez" + statusReason.ToString(), ex1);
-                        //throw new InvalidPluginExecutionException("wtf", ex1);
-
+                       
+                        
                         if ((entity.Attributes.Contains("gcbase_estimatedannualbudget") || entity.Attributes.Contains("gcbase_startdate") || entity.Attributes.Contains("gcbase_enddate")) 
                             /**&& (statusReason == "open")**/)
                         {
@@ -163,50 +157,13 @@ namespace CrmGC.Plugins
                                     param.amount = preEntity.GetAttributeValue<Money>("gcbase_estimatedannualbudget");
                                 }  
                             }
-
-                           
-                            
                             param.id = entity.Id;
-                            //EntityReference fundCentre = new EntityReference("gcbase_fundcentre", param.id);
-                            //fundCentreBudget["gcbase_fundcentre"] = fundCentre;
-                            //EntityReference fundRef = new EntityReference("gcbase_fund", preEntity.GetAttributeValue<Guid>("gcbase_fund"));
-
-
-                            //QueryExpression fundQry = new QueryExpression
-                            //{
-                            //    EntityName = "gcbase_fund",
-                            //    ColumnSet = new ColumnSet("gcbase_name"),
-                            //    Criteria = new FilterExpression
-                            //    {
-                            //        Conditions = {
-                            //             new ConditionExpression {
-                            //                AttributeName = "gcbase_fundid",
-                            //                Operator = ConditionOperator.Equal,
-                            //                Values = { preEntity.GetAttributeValue<Guid>("gcbase_fund") }
-                            //             }
-                            //           }
-                            //    }
-                            //};
-                            //DataCollection<Entity> fundResults = service.RetrieveMultiple(fundQry).Entities;
-                            //string fundName = "";
-
-                            //foreach (var ft in fundResults)
-                            //{
-                            //    fundName = (string)ft.GetAttributeValue<string>("gcbase_name").ToString();
-                            //}   
-                            //EntityReference fundRef = new EntityReference("gcbase_fund", preEntity.GetAttributeValue<EntityReference>("gcbase_fund").Id);
+                           
                             var fundEntity = service.Retrieve("gcbase_fund", preEntity.GetAttributeValue<EntityReference>("gcbase_fund").Id, new ColumnSet("gcbase_name", "gcbase_fundid", "gcbase_fundtype"));
                             var fundTypeEntity = service.Retrieve("gcbase_fundtype", fundEntity.GetAttributeValue<EntityReference>("gcbase_fundtype").Id, new ColumnSet("gcbase_name"));
                             param.name = preEntity.GetAttributeValue<string>("gcbase_name") + "-" + fundEntity.GetAttributeValue<string>("gcbase_name") + "-" + fundTypeEntity.GetAttributeValue<string>("gcbase_name");
-                           
-                            //localContext.Trace(startDate.ToString());
-                            //string status = preEntity.GetAttributeValue<OptionSetValue>("statecode").Value.ToString();
-                            //if (statusReason == "open") { 
-                                //create budget lines                               
-                                createOrUpdateBudgetLineItems(param, service, preEntity, entity);
-                                
-                            //}
-                            
+                                                     
+                            createOrUpdateBudgetLineItems(param, service, preEntity, entity);
                         }           
                     }
 

@@ -14,6 +14,12 @@ namespace CrmGC.Plugins
     using System.ServiceModel;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Client;
+    using Microsoft.Xrm.Sdk.Query;
+    using Microsoft.Xrm.Sdk.Discovery;
+    using Microsoft.Xrm.Sdk.Messages;
+    using System.Collections.Generic;
+    using System.Linq;
+
 
     /// <summary>
     /// PostFundingCaseCreate Plugin.
@@ -45,21 +51,22 @@ namespace CrmGC.Plugins
                 Entity entity = (Entity)context.InputParameters["Target"];
 
                 if (entity.LogicalName != "gcbase_fundingcase")
-                    return;                
-                
-                //FaultException ex1 = new FaultException();
-                //throw new InvalidPluginExecutionException("test", ex1);
-              
+                    return;
+
+                FaultException ex1 = new FaultException();
+              //  throw new InvalidPluginExecutionException("test", ex1);
 
                 try
                 {
-                    //fundCentreBudget["gcbase_name"] = param.name + "-" + fy.Value;
-                    //// ctx.Attach(fundCentreBudget)
-                    //ctx.AddObject(fundCentreBudget);
-                    //ctx.SaveChanges();
-                   
-                   
+                     //// Obtain the organization service reference.
+                    IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+                    IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
+                    AutoNumbering autoNumbering = new AutoNumbering(entity, service);
+                    String caseNumber = autoNumbering.getAutoNumber();
+
+                    entity["gcbase_name"] = caseNumber;
+                    service.Update(entity);
                     if (entity.Attributes.Contains("gcbase_amountsbyfiscalyearserver"))
                     {
 
@@ -84,55 +91,40 @@ namespace CrmGC.Plugins
                             fy.Value = Int32.Parse(yearStr);
                             fundingAmountByFY["gcbase_fiscalyear"] = fy;
                             fundingAmountByFY["gcbase_amount"] = amount;
-                            fundingAmountByFY["gcbase_fundcentre"] = fundCentre; //entity.GetAttributeValue<EntityReference>("gcbase_fundcentre");
-
-                            //// Obtain the organization service reference.
-                            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-
-                            //// Create the task in Microsoft Dynamics CRM.
-                            tracingService.Trace("FollowupPlugin: Creating the budget item.");
-                            service.Create(fundingAmountByFY);
-
+                            fundingAmountByFY["gcbase_fundcentre"] = fundCentre; 
+                            tracingService.Trace("PostFundingCasePlugin: Creating the budget item.");
+                            service.Create(fundingAmountByFY);                           
                             tracingService.Trace(ya);
-                        }
-                        //throw new InvalidPluginExecutionException(entity.Attributes["gcbase_amountsbyfiscalyearserver"].ToString(), ex1);
-
-
-                       
-                        
-                       
-                    
+                        }                    
                     }
-                    //// Create a task activity to follow up with the account customer in 7 days. 
-                    
-                    
-                    //Entity followup = new Entity("task");
+                    if (entity.Attributes.Contains("gcbase_program"))
+                    {
+                        ColumnSet cols = new ColumnSet
+                        (
+                                new String[] {"gcbase_fundingcaseriskrequired"}
+                        );
 
-                    //followup["subject"] = "Send e-mail to the new customer.";
-                    //followup["description"] =
-                    //    "Follow up with the customer. Check if there are any new issues that need resolution.";
-                    //followup["scheduledstart"] = DateTime.Now.AddDays(7);
-                    //followup["scheduledend"] = DateTime.Now.AddDays(7);
-                    //followup["category"] = context.PrimaryEntityName;
+                        //program configuration options
+                        var program = service.Retrieve("gcbase_fundcentre", entity.GetAttributeValue<EntityReference>("gcbase_program").Id, cols);
+                        tracingService.Trace("there");
+                        if (program.GetAttributeValue<Boolean>("gcbase_fundingcaseriskrequired"))
+                        {
+                            var ratype = new helpers.OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_fundingcaseriskassessmenttype", "Initial", service);
+                            OptionSetValue raTypeOpt = new OptionSetValue(ratype);
+                           
+                            //create initial risk assessment - should be custom class since this will be reused by other plugins
+                            if (!new Common_Modules.RiskTemplateHelper(null, service).generateRiskAssessment(entity, raTypeOpt))
+                            {
+                                throw new InvalidPluginExecutionException("issue with plugin", ex1);
+                            }
+                            
+                            //newRA.generateAssessment();
+                        }
 
-                    //// Refer to the account in the task activity.
-                    //if (context.OutputParameters.Contains("id"))
-                    //{
-                    //    Guid regardingobjectid = new Guid(context.OutputParameters["id"].ToString());
-                    //    string regardingobjectidType = "account";
 
-                    //    followup["regardingobjectid"] =
-                    //    new EntityReference(regardingobjectidType, regardingobjectid);
-                    //}
+                        //var results = service.Retrieve("gcbase_fundcentre", entity.GetAttributeValue<Guid>("gcbase_program"), null);
 
-                    //// Obtain the organization service reference.
-                    //IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                    //IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-
-                    //// Create the task in Microsoft Dynamics CRM.
-                    //tracingService.Trace("FollowupPlugin: Creating the task activity.");
-                    //service.Create(followup);
+                    }               
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {

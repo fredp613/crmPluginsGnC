@@ -53,7 +53,7 @@ namespace CrmGC.Plugins
 
                 try
                 {
-                    entity["gcbase_name"] = caseNumber;
+                  //  entity["gcbase_name"] = caseNumber;
                     
                 }
                         

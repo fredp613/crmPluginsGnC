@@ -30,7 +30,7 @@ namespace CrmGC.Plugins
             if (entity.LogicalName == "gcbase_fundingcase") {
                 var fundEntity = service.Retrieve("gcbase_fundcentre", entity.GetAttributeValue<EntityReference>("gcbase_program").Id, new ColumnSet("gcbase_sapfundcentre"));
                 var sapEntity = service.Retrieve("gcbase_sapfundcentre", fundEntity.GetAttributeValue<EntityReference>("gcbase_sapfundcentre").Id, new ColumnSet("gcbase_name"));
-                autoNumber = generateAutoNumber(sapEntity.GetAttributeValue<String>("gcbase_name").ToString(), getLastNumberFromEntity());
+                autoNumber = generateAutoNumberGUIDpartial(sapEntity.GetAttributeValue<String>("gcbase_name").ToString());
             }
             if (entity.LogicalName == "gcbase_client") {
                 autoNumber = generateAutoNumber("", getLastNumberFromEntity());
@@ -38,7 +38,22 @@ namespace CrmGC.Plugins
             return autoNumber;
         }
 
+        public string generateAutoNumberGUIDpartial(string prefix) 
+        {
+            var guid = Guid.NewGuid();
+            string finalStr;
+            if (prefix != null) {
+                finalStr = prefix + "-" + guid.ToString().Substring(0, 7);
+            } else { 
+                finalStr = guid.ToString().Substring(0, 7);
+            }
+            return finalStr.ToUpper();
+        }
+
+        //this needs refactoring
         private string getLastNumberFromEntity() {
+
+
             string entityName = entity.LogicalName;
             QueryExpression lastAutoNumberOfEntity = new QueryExpression
             {
@@ -46,8 +61,6 @@ namespace CrmGC.Plugins
                 ColumnSet = new ColumnSet("gcbase_name"),                                             
             };
             lastAutoNumberOfEntity.Orders.Add(new OrderExpression("gcbase_name", OrderType.Descending));
-            lastAutoNumberOfEntity.PageInfo.Count = 1;
-            lastAutoNumberOfEntity.PageInfo.PageNumber = 1;
             var test = service.RetrieveMultiple(lastAutoNumberOfEntity).Entities.FirstOrDefault();
             if (test != null) {
                 return test.GetAttributeValue<String>("gcbase_name");
@@ -55,6 +68,7 @@ namespace CrmGC.Plugins
             return "10000";
         }
 
+        //needs to be refactored
         private string generateAutoNumber(string prefix, string lastNumber) {           
            // String autoNumber = "";
             long numberForAppending = 0;

@@ -57,16 +57,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoNumbering.cs" />
+    <Compile Include="Common Modules\RiskTemplateModule.cs" />
     <Compile Include="FiscalYear.cs" />
+    <Compile Include="helpers\OptionSetHelper.cs" />
     <Compile Include="helpers\Predicates.cs" />
     <Compile Include="OptionSets.cs" />
     <Compile Include="PostFundCentreCreate.cs" />
     <Compile Include="PostFundingCaseCreate.cs" />
+    <Compile Include="PostFundingCaseRiskAssessmentCreate.cs" />
     <Compile Include="PostISOSetupCreate.cs" />
+    <Compile Include="PostRiskFactorValueUpdate.cs" />
+    <Compile Include="PostRiskTemplateRiskFactorCreate.cs" />
+    <Compile Include="PostRiskTemplateRiskFactorUpdate.cs" />
     <Compile Include="PreClientCreate.cs" />
     <Compile Include="PreFundCentreRetrieve.cs" />
     <Compile Include="PreFundCentreUpdate.cs" />
     <Compile Include="PreFundingCaseCreate.cs" />
+    <Compile Include="PreRiskTemplateRiskFactorDelete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugin.cs" />
   </ItemGroup>
