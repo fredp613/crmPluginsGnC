@@ -19,6 +19,7 @@ namespace CrmGC.Plugins
     using Microsoft.Xrm.Sdk.Messages;
     using System.Collections.Generic;
     using System.Linq;
+    using EgcsCommon;
 
 
     /// <summary>
@@ -109,13 +110,13 @@ namespace CrmGC.Plugins
                         tracingService.Trace("there");
                         if (program.GetAttributeValue<Boolean>("gcbase_fundingcaseriskrequired"))
                         {
-                            var ratype = new helpers.OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_fundingcaseriskassessmenttype", "Initial", service);
+                            var ratype = new OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_fundingcaseriskassessmenttype", "Initial", service);
                             OptionSetValue raTypeOpt = new OptionSetValue(ratype);
                            
                             //create initial risk assessment - should be custom class since this will be reused by other plugins
-                            if (!new Common_Modules.RiskTemplateHelper(null, service).generateRiskAssessment(entity, raTypeOpt))
+                            if (!new RiskTemplate(null, service).generateRiskAssessment(entity, raTypeOpt))
                             {
-                                throw new InvalidPluginExecutionException("issue with plugin", ex1);
+                                throw new InvalidPluginExecutionException("The funding program is not fully configured therefore a funding case cannot be created yet", ex1);
                             }
                             
                             //newRA.generateAssessment();

@@ -13,6 +13,7 @@ namespace CrmGC.Plugins
     using System;
     using System.ServiceModel;
     using Microsoft.Xrm.Sdk;
+    using EgcsCommon;
 
     /// <summary>
     /// PreClientCreate Plugin.

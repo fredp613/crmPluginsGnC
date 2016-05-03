@@ -3,27 +3,27 @@ using System.ServiceModel;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 
-namespace CrmGC.Plugins.helpers
+namespace EgcsCommon
 {
-    enum RiskAssessType 
-    { 
+    public enum RiskAssessType
+    {
         Initial = 1,
         Amendment = 2,
         Revision = 3,
-        Other = 4    
+        Other = 4
     };
-    
-    
-    class OptionSetHelper
+
+
+    public class OptionSetHelper
     {
-        public int getIndexOfLabel(string entityName, string field, string labelText, IOrganizationService context) 
+        public int getIndexOfLabel(string entityName, string field, string labelText, IOrganizationService context)
         {
-            int index = -1; 
+
+            int index = -1;
             RetrieveAttributeRequest attributeRequest = new RetrieveAttributeRequest
             {
                 EntityLogicalName = entityName,
@@ -35,20 +35,21 @@ namespace CrmGC.Plugins.helpers
 
             foreach (OptionMetadata om in attributeMetadata.OptionSet.Options)
             {
-              
+
                 if (om.Label.UserLocalizedLabel.Label.ToString() == labelText)
                 {
-                    if (om.Value != null) {
-                        index = om.Value.Value;                       
+                    if (om.Value != null)
+                    {
+                        index = om.Value.Value;
                     }
                 }
             }
 
             return index;
-            
-        
+
+
         }
-        public string getLabelFromField(Entity entity, string field, IOrganizationService context) 
+        public string getLabelFromField(Entity entity, string field, IOrganizationService context)
         {
             var fieldValue = ((OptionSetValue)entity.Attributes[field]).Value.ToString();
             string fieldLabel = "";
@@ -75,3 +76,6 @@ namespace CrmGC.Plugins.helpers
         }
     }
 }
+
+
+

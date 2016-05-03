@@ -19,6 +19,7 @@ namespace CrmGC.Plugins
     using Microsoft.Xrm.Sdk.Messages;
     using System.Collections.Generic;
     using System.Linq;
+    using EgcsCommon;
 
     /// <summary>
     /// PostFundingCaseRiskAssessmentCreate Plugin.
@@ -57,7 +58,7 @@ namespace CrmGC.Plugins
                     
                     if (entity.Attributes.Contains("gcbase_risktemplate"))
                     {
-                        if (!new Common_Modules.RiskTemplateHelper(null, service).generateRiskFactorsForTemplate(entity.GetAttributeValue<EntityReference>("gcbase_risktemplate"),entity.Id))
+                        if (!new RiskTemplate(null, service).generateRiskFactorsForTemplate(entity.GetAttributeValue<EntityReference>("gcbase_risktemplate"),entity.Id))
                         {
                             throw new InvalidPluginExecutionException("issue with plugin", ex1);
                         }

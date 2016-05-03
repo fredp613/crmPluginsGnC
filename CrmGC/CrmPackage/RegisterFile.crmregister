@@ -3,7 +3,7 @@
   <Solutions>
     <Solution Assembly="CrmGC.Plugins.dll" Id="7fe4fd30-a7e9-471c-99c1-bac03a819875" IsolationMode="Sandbox" SourceType="Database">
       <PluginTypes>
-        <Plugin Description="Plug-in to PreFundCentreUpdate" FriendlyName="PreFundCentreUpdate" Name="CrmGC.Plugins.PreFundCentreUpdate" Id="b6409403-fef6-4fc0-9463-76ff558c374d" TypeName="CrmGC.Plugins.PreFundCentreUpdate">
+        <Plugin Description="Plug-in to PreFundCentreUpdate" FriendlyName="PreFundCentreUpdate" Name="CrmGC.Plugins.PreFundCentreUpdate" Id="b53d5d79-18b0-4c6a-91bb-6a11bd559f91" TypeName="CrmGC.Plugins.PreFundCentreUpdate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PreFundCentreUpdate" Description="Pre-Operation of Fund Centre Update" Id="aeb97cea-703c-e511-80ef-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
@@ -13,7 +13,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostFundingCaseCreate" FriendlyName="PostFundingCaseCreate" Name="CrmGC.Plugins.PostFundingCaseCreate" Id="8779a54d-0a41-4fff-90b2-a8a7afa06704" TypeName="CrmGC.Plugins.PostFundingCaseCreate">
+        <Plugin Description="Plug-in to PostFundingCaseCreate" FriendlyName="PostFundingCaseCreate" Name="CrmGC.Plugins.PostFundingCaseCreate" Id="348f1ac3-a44d-4582-a508-297ba0e401d6" TypeName="CrmGC.Plugins.PostFundingCaseCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostFundingCaseCreate" Description="Post-Operation of Funding Case Create" Id="e1fb9841-6852-e511-80f0-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcase" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -23,7 +23,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PreFundingCaseCreate" FriendlyName="PreFundingCaseCreate" Name="CrmGC.Plugins.PreFundingCaseCreate" Id="2b275747-345e-e511-80f0-005056a03443" TypeName="CrmGC.Plugins.PreFundingCaseCreate">
+        <Plugin Description="Plug-in to PreFundingCaseCreate" FriendlyName="PreFundingCaseCreate" Name="CrmGC.Plugins.PreFundingCaseCreate" Id="96e8837e-2204-43b0-b1cc-6442dff08b3d" TypeName="CrmGC.Plugins.PreFundingCaseCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PreFundingCaseCreate" Description="Pre-Operation of Funding Case Create" Id="2c275747-345e-e511-80f0-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcase" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
@@ -31,7 +31,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PreClientCreate" FriendlyName="PreClientCreate" Name="CrmGC.Plugins.PreClientCreate" Id="51db6701-5369-e511-80f1-005056a03443" TypeName="CrmGC.Plugins.PreClientCreate">
+        <Plugin Description="Plug-in to PreClientCreate" FriendlyName="PreClientCreate" Name="CrmGC.Plugins.PreClientCreate" Id="e1dff896-75f7-4f3e-b501-8827257b6896" TypeName="CrmGC.Plugins.PreClientCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PreClientCreate" Description="Pre-Operation of Client Create" Id="52db6701-5369-e511-80f1-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_client" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
@@ -39,7 +39,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostFundCentreCreate" FriendlyName="PostFundCentreCreate" Name="CrmGC.Plugins.PostFundCentreCreate" Id="4b33b33b-af7c-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PostFundCentreCreate">
+        <Plugin Description="Plug-in to PostFundCentreCreate" FriendlyName="PostFundCentreCreate" Name="CrmGC.Plugins.PostFundCentreCreate" Id="12ab72e0-5ca3-4b70-ba90-98a234fe50c4" TypeName="CrmGC.Plugins.PostFundCentreCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostFundCentreCreate" Description="Post-Operation of Fund Centre Create" Id="4c33b33b-af7c-e511-80f2-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -47,7 +47,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostISOSetupCreate" FriendlyName="PostISOSetupCreate" Name="CrmGC.Plugins.PostISOSetupCreate" Id="cad56418-f27c-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PostISOSetupCreate">
+        <Plugin Description="Plug-in to PostISOSetupCreate" FriendlyName="PostISOSetupCreate" Name="CrmGC.Plugins.PostISOSetupCreate" Id="e876d138-658e-45dc-b2cb-1a16d4f41bc0" TypeName="CrmGC.Plugins.PostISOSetupCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostISOSetupCreate" Description="Post-Operation of ISO Setup Create" Id="cbd56418-f27c-e511-80f2-005056a03443" MessageName="Create" Mode="Asynchronous" PrimaryEntityName="gcbase_isosetup" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -55,15 +55,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PreFundCentreRetrieve" FriendlyName="PreFundCentreRetrieve" Name="CrmGC.Plugins.PreFundCentreRetrieve" Id="59221bf2-b67d-e511-80f2-005056a03443" TypeName="CrmGC.Plugins.PreFundCentreRetrieve">
-          <Steps>
-            <clear />
-            <Step CustomConfiguration="" Name="PreFundCentreRetrieve" Description="Pre-Operation of Fund Centre Retrieve" Id="5a221bf2-b67d-e511-80f2-005056a03443" MessageName="Retrieve" Mode="Synchronous" PrimaryEntityName="gcbase_fundcentre" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
-              <Images />
-            </Step>
-          </Steps>
-        </Plugin>
-        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorCreate" FriendlyName="PostRiskTemplateRiskFactorCreate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate" Id="c3118c9d-f9d3-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate">
+        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorCreate" FriendlyName="PostRiskTemplateRiskFactorCreate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate" Id="4b97b6d4-eb5a-4180-90a5-1bb140f8ee3b" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostRiskTemplateRiskFactorCreate" Description="Post-Operation of Risk Template Risk Factor Create" Id="c4118c9d-f9d3-e511-80fd-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -71,7 +63,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorUpdate" FriendlyName="PostRiskTemplateRiskFactorUpdate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate" Id="c7118c9d-f9d3-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate">
+        <Plugin Description="Plug-in to PostRiskTemplateRiskFactorUpdate" FriendlyName="PostRiskTemplateRiskFactorUpdate" Name="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate" Id="c961719a-92f4-48de-a9a1-afdd26e929a8" TypeName="CrmGC.Plugins.PostRiskTemplateRiskFactorUpdate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostRiskTemplateRiskFactorUpdate" Description="Post-Operation of Risk Template Risk Factor Update" Id="c8118c9d-f9d3-e511-80fd-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -81,7 +73,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PreRiskTemplateRiskFactorDelete" FriendlyName="PreRiskTemplateRiskFactorDelete" Name="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete" Id="f085b09b-a9d5-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete">
+        <Plugin Description="Plug-in to PreRiskTemplateRiskFactorDelete" FriendlyName="PreRiskTemplateRiskFactorDelete" Name="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete" Id="63b7b394-fa13-44f6-9be6-05acd9f4e75e" TypeName="CrmGC.Plugins.PreRiskTemplateRiskFactorDelete">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PreRiskTemplateRiskFactorDelete" Description="Pre-Operation of Risk Template Risk Factor Delete" Id="f185b09b-a9d5-e511-80fd-005056a03443" MessageName="Delete" Mode="Synchronous" PrimaryEntityName="gcbase_risktemplateriskfactor" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
@@ -89,7 +81,7 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostRiskFactorValueUpdate" FriendlyName="PostRiskFactorValueUpdate" Name="CrmGC.Plugins.PostRiskFactorValueUpdate" Id="416e68f3-bbd5-e511-80fd-005056a03443" TypeName="CrmGC.Plugins.PostRiskFactorValueUpdate">
+        <Plugin Description="Plug-in to PostRiskFactorValueUpdate" FriendlyName="PostRiskFactorValueUpdate" Name="CrmGC.Plugins.PostRiskFactorValueUpdate" Id="013cb797-2697-473e-bc4d-0a1da983fdc2" TypeName="CrmGC.Plugins.PostRiskFactorValueUpdate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostRiskFactorValueUpdate" Description="Post-Operation of Risk Factor Value Update" Id="426e68f3-bbd5-e511-80fd-005056a03443" MessageName="Update" Mode="Synchronous" PrimaryEntityName="gcbase_riskfactorvalue" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
@@ -97,10 +89,18 @@
             </Step>
           </Steps>
         </Plugin>
-        <Plugin Description="Plug-in to PostFundingCaseRiskAssessmentCreate" FriendlyName="PostFundingCaseRiskAssessmentCreate" Name="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate" Id="cab71856-76da-e511-8100-005056a03443" TypeName="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate">
+        <Plugin Description="Plug-in to PostFundingCaseRiskAssessmentCreate" FriendlyName="PostFundingCaseRiskAssessmentCreate" Name="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate" Id="7ea738d6-eb38-4ee1-b015-80b19c80a9fb" TypeName="CrmGC.Plugins.PostFundingCaseRiskAssessmentCreate">
           <Steps>
             <clear />
             <Step CustomConfiguration="" Name="PostFundingCaseRiskAssessmentCreate" Description="Post-Operation of Funding Case Risk Assessment Create" Id="cbb71856-76da-e511-8100-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="gcbase_fundingcaseriskassessment" Rank="1" SecureConfiguration="" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to PreMultilingualSupportedEntityCreate" FriendlyName="PreMultilingualSupportedEntityCreate" Name="CrmGC.Plugins.PreMultilingualSupportedEntityCreate" Id="f3bcb3b1-8074-4800-82c5-d7cb751a7dd8" TypeName="CrmGC.Plugins.PreMultilingualSupportedEntityCreate">
+          <Steps>
+            <clear />
+            <Step CustomConfiguration="" Name="PreMultilingualSupportedEntityCreate" Description="Pre-Operation of Multilingual Supported Entity Create" Id="87688881-3ced-e511-8100-005056a03443" MessageName="Create" Mode="Synchronous" PrimaryEntityName="egcs_multilingualsupportentity" Rank="1" SecureConfiguration="" Stage="PreInsideTransaction" SupportedDeployment="ServerOnly">
               <Images />
             </Step>
           </Steps>

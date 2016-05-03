@@ -19,6 +19,7 @@ namespace CrmGC.Plugins
     using Microsoft.Xrm.Sdk.Messages;
     using System.Collections.Generic;
     using System.Linq;
+    using EgcsCommon;
 
     /// <summary>
     /// PreRiskTemplateRiskFactorDelete Plugin.
@@ -63,10 +64,10 @@ namespace CrmGC.Plugins
                         var riskTemplateRef = postEntity.GetAttributeValue<EntityReference>("gcbase_risktemplate");
                         //first check if there are any completed risk asssessments using this template, if yes the user will not have the ability 
                         //change the weights etc, they will need to create a new template - only thing they should be allowed to edit is the rick factor titles maybe
-                        if (!new Common_Modules.RiskTemplateHelper(riskTemplateRef, service).templateHasExistingCompletedAssessments())
+                        if (!new RiskTemplate(riskTemplateRef, service).templateHasExistingCompletedAssessments())
                         {
                             // throw new InvalidPluginExecutionException("asfsdafasd", ex1);
-                            if (!new Common_Modules.RiskTemplateHelper(riskTemplateRef, service).generateTotalWeightedRiskScore())
+                            if (!new RiskTemplate(riskTemplateRef, service).generateTotalWeightedRiskScore())
                             {
                                 throw new InvalidPluginExecutionException("something went wrong contact system admin-postrisktemplateriskfactorupdate plugin", ex1);
                             };

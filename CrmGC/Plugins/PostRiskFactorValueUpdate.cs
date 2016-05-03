@@ -19,6 +19,7 @@ namespace CrmGC.Plugins
     using Microsoft.Xrm.Sdk.Messages;
     using System.Collections.Generic;
     using System.Linq;
+    using EgcsCommon;
 
     /// <summary>
     /// PostRiskFactorValueUpdate Plugin.
@@ -65,7 +66,7 @@ namespace CrmGC.Plugins
                        // int indexOfStatus = optHelper.getIndexOfLabel("gcbase_riskfactorvalue", "statuscode", "Completed", service);
                       //  throw new InvalidPluginExecutionException(optHelper.getLabelFromField(entity, "statuscode", service), ex1);
 
-                        if (!new Common_Modules.RiskTemplateHelper(null, service).generateTotalWeightedRiskScoreForRiskAssessment(riskfactorValue))
+                        if (!new RiskTemplate(null, service).generateTotalWeightedRiskScoreForRiskAssessment(riskfactorValue))
                         {
                             throw new InvalidPluginExecutionException("something went wrong contact sys admin re. postriskfactorvalue plugin", ex1);
                         }

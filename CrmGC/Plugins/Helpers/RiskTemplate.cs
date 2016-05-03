@@ -5,19 +5,18 @@ using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk.Discovery;
 using Microsoft.Xrm.Sdk.Messages;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace CrmGC.Plugins.Common_Modules
+namespace EgcsCommon
 {
-    class RiskTemplateHelper
+    public class RiskTemplate
     {
 
         private EntityReference _riskTemplate;
         private IOrganizationService _service;
         private FaultException ex1;
-        
-        public RiskTemplateHelper(EntityReference rt, IOrganizationService serv)
+
+        public RiskTemplate(EntityReference rt, IOrganizationService serv)
         {
             ex1 = new FaultException();
             _riskTemplate = rt;
@@ -31,16 +30,16 @@ namespace CrmGC.Plugins.Common_Modules
             try
             {
                 var fc = _service.Retrieve("gcbase_fundingcase", fundingCase.Id, new ColumnSet("gcbase_program"));
-                var fundingCaseRef = new EntityReference("gcbase_fundingcase", fundingCase.Id);   
-                
+                var fundingCaseRef = new EntityReference("gcbase_fundingcase", fundingCase.Id);
+
                 var fundCentreRef = fc.GetAttributeValue<EntityReference>("gcbase_program");
                 QueryExpression qe = new QueryExpression("gcbase_risktemplatefundcentre");
-                qe.Criteria.AddCondition("gcbase_fundcentre", ConditionOperator.Equal, fundCentreRef.Id);               
+                qe.Criteria.AddCondition("gcbase_fundcentre", ConditionOperator.Equal, fundCentreRef.Id);
                 qe.ColumnSet.AddColumns("gcbase_risktemplate", "gcbase_name");
                 //var optHelper = new helpers.OptionSetHelper();
                 //int indexOfStatus = optHelper.getIndexOfLabel("gcbase_risktemplate", "statuscode", "Completed", _service);
                 //qe.Criteria.AddCondition("statuscode", ConditionOperator.Equal, indexOfStatus);
-                 
+
                 var rtfc = _service.RetrieveMultiple(qe).Entities.First();
                 var riskTemplateRef = rtfc.GetAttributeValue<EntityReference>("gcbase_risktemplate");
 
@@ -51,7 +50,7 @@ namespace CrmGC.Plugins.Common_Modules
                 newFundingCaseRiskAssessment["gcbase_fundingcaseriskassessmenttype"] = riskAssessmentType;
                 //newFundingCaseRiskAssessment["gcbase_name"] = rtfc.GetAttributeValue<EntityReference>("gcbase_risktemplate").Name;
                 var newFCRA = _service.Create(newFundingCaseRiskAssessment);
-               
+
                 //the method below already happens when the plugin is called
                 //generateRiskFactorsForTemplate(riskTemplateRef, newFCRA);
                 return true;
@@ -59,7 +58,7 @@ namespace CrmGC.Plugins.Common_Modules
             catch
             {
                 return false;
-            } 
+            }
         }
 
 
@@ -67,14 +66,14 @@ namespace CrmGC.Plugins.Common_Modules
         {
             try
             {
-               // 
+                // 
                 QueryExpression qe = new QueryExpression("gcbase_risktemplateriskfactor");
                 qe.Criteria.AddCondition("gcbase_risktemplate", ConditionOperator.Equal, riskTemplate.Id);
                 qe.ColumnSet.AddColumns("gcbase_name", "gcbase_riskfactor", "gcbase_risktemplate");
                 var riskFactors = _service.RetrieveMultiple(qe).Entities;
 
                 foreach (var item in riskFactors)
-                {                   
+                {
                     Entity riskFactorValue = new Entity("gcbase_riskfactorvalue");
                     riskFactorValue["gcbase_name"] = item.GetAttributeValue<EntityReference>("gcbase_riskfactor").Name;
                     riskFactorValue["gcbase_riskfactor"] = new EntityReference("gcbase_riskfactor", item.GetAttributeValue<EntityReference>("gcbase_riskfactor").Id);
@@ -87,7 +86,7 @@ namespace CrmGC.Plugins.Common_Modules
                 return true;
             }
             catch
-            {               
+            {
                 return false;
             }
         }
@@ -117,48 +116,48 @@ namespace CrmGC.Plugins.Common_Modules
                 Guid riskTemplateId = qeResult.First().GetAttributeValue<EntityReference>("gcbase_risktemplate").Id;
 
                 QueryExpression qeMultiplier = new QueryExpression("gcbase_risktemplateriskfactor");
-                qeMultiplier.Criteria.AddCondition("gcbase_risktemplate", ConditionOperator.Equal, riskTemplateId );
+                qeMultiplier.Criteria.AddCondition("gcbase_risktemplate", ConditionOperator.Equal, riskTemplateId);
 
                 int multiplier = _service.RetrieveMultiple(qeMultiplier).Entities.Count();
-                
+
 
                 foreach (var item in relatedRiskFactorValues)
                 {
-                    var optHelper = new helpers.OptionSetHelper();
+                    var optHelper = new OptionSetHelper();
                     int indexOfStatus = optHelper.getIndexOfLabel("gcbase_riskfactorvalue", "statuscode", "Completed", _service);
-                    
-                    //get risk factor weight
-                    var rf = _service.Retrieve("gcbase_risktemplateriskfactor", item.GetAttributeValue<EntityReference>("gcbase_risktemplateriskfactor").Id, new ColumnSet("gcbase_weight", "gcbase_multiplier"));                
-                   
 
-                                
+                    //get risk factor weight
+                    var rf = _service.Retrieve("gcbase_risktemplateriskfactor", item.GetAttributeValue<EntityReference>("gcbase_risktemplateriskfactor").Id, new ColumnSet("gcbase_weight", "gcbase_multiplier"));
+
+
+
                     if (item.GetAttributeValue<OptionSetValue>("statuscode").Value == indexOfStatus)
                     {
                         validRiskFactorValueCount += 1;
                         var weight = rf.GetAttributeValue<decimal>("gcbase_weight");
-                       // var multiplier = rf.GetAttributeValue<decimal>("gcbase_multiplier");
+                        // var multiplier = rf.GetAttributeValue<decimal>("gcbase_multiplier");
 
                         var riskLevel = item.GetAttributeValue<OptionSetValue>("gcbase_risklevel");
-                        var riskLevelValue = new helpers.OptionSetHelper();
-                       
+                        var riskLevelValue = new OptionSetHelper();
+
                         var riskLevelText = riskLevelValue.getLabelFromField(item, "gcbase_risklevel", _service);
                         int riskVal = 0;
-                        if (riskLevelText == "Low")
+                        if (riskLevelText == "1-Low")
                         {
                             riskVal = 1;
                         }
-                        if (riskLevelText == "Medium")
+                        if (riskLevelText == "2-Medium")
                         {
                             riskVal = 2;
                         }
-                        if (riskLevelText == "High")
+                        if (riskLevelText == "3-High")
                         {
                             riskVal = 3;
                         }
 
                         totalWeighted += ((riskVal * weight) * multiplier);
                         totalUnWeighted += riskVal;
-                    }                   
+                    }
                 }
 
                 if (riskTemplateRiskFactorCount == validRiskFactorValueCount)
@@ -172,20 +171,20 @@ namespace CrmGC.Plugins.Common_Modules
 
                     if (totalUnWeighted <= multiplier)
                     {
-                        assessedRisk = new OptionSetValue(new helpers.OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "Low", _service));
+                        assessedRisk = new OptionSetValue(new OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "1-Low", _service));
                     }
                     if (totalUnWeighted > multiplier && totalUnWeighted <= midRiskMaxScore)
                     {
-                        assessedRisk = new OptionSetValue(new helpers.OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "Medium", _service));
+                        assessedRisk = new OptionSetValue(new OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "2-Medium", _service));
                     }
                     if (totalUnWeighted > midRiskMaxScore)
                     {
-                        assessedRisk = new OptionSetValue(new helpers.OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "High", _service));
+                        assessedRisk = new OptionSetValue(new OptionSetHelper().getIndexOfLabel("gcbase_fundingcaseriskassessment", "gcbase_assessedrisk", "3-High", _service));
                     }
 
-                  //  var optHelper = new helpers.OptionSetHelper();
-                   // int indexOfStatus = optHelper.getIndexOfLabel("gcbase_fundingcaseriskassessment", "statuscode", "Analyst Completed", _service);
-                   // fcra["statuscode"] = new OptionSetValue(indexOfStatus);
+                    //  var optHelper = new helpers.OptionSetHelper();
+                    // int indexOfStatus = optHelper.getIndexOfLabel("gcbase_fundingcaseriskassessment", "statuscode", "Analyst Completed", _service);
+                    // fcra["statuscode"] = new OptionSetValue(indexOfStatus);
                     fcra["gcbase_totalweightedscore"] = totalWeighted;
                     fcra["gcbase_totalunweightedscore"] = totalUnWeighted;
                     fcra["gcbase_assessedrisk"] = assessedRisk;
@@ -194,7 +193,7 @@ namespace CrmGC.Plugins.Common_Modules
                 }
                 else
                 {
-                    var optHelper = new helpers.OptionSetHelper();
+                    var optHelper = new OptionSetHelper();
                     int indexOfStatus = optHelper.getIndexOfLabel("gcbase_fundingcaseriskassessment", "statuscode", "Incomplete", _service);
                     fcra["statuscode"] = new OptionSetValue(indexOfStatus);
                     fcra["gcbase_totalweightedscore"] = null;
@@ -214,7 +213,7 @@ namespace CrmGC.Plugins.Common_Modules
         public Boolean generateTotalWeightedRiskScore()
         {
             try
-            {                
+            {
                 var riskTemplateId = _riskTemplate.Id;
                 QueryExpression qe = new QueryExpression("gcbase_risktemplateriskfactor");
                 qe.Criteria.AddCondition("gcbase_risktemplate", ConditionOperator.Equal, riskTemplateId);
@@ -229,7 +228,7 @@ namespace CrmGC.Plugins.Common_Modules
                 if (sumOfWeights == 1)
                 {
                     Entity riskTemplate = _service.Retrieve("gcbase_risktemplate", riskTemplateId, new ColumnSet("statuscode"));
-                    var optHelper = new helpers.OptionSetHelper();
+                    var optHelper = new OptionSetHelper();
                     int indexOfStatus = optHelper.getIndexOfLabel("gcbase_risktemplate", "statuscode", "Active", _service);
                     riskTemplate["statuscode"] = new OptionSetValue(indexOfStatus);
                     _service.Update(riskTemplate);
@@ -237,32 +236,32 @@ namespace CrmGC.Plugins.Common_Modules
                 else
                 {
                     Entity riskTemplate = _service.Retrieve("gcbase_risktemplate", riskTemplateId, new ColumnSet("statuscode"));
-                    var optHelper = new helpers.OptionSetHelper();
+                    var optHelper = new OptionSetHelper();
                     int indexOfStatus = optHelper.getIndexOfLabel("gcbase_risktemplate", "statuscode", "Incomplete", _service);
                     riskTemplate["statuscode"] = new OptionSetValue(indexOfStatus);
                     _service.Update(riskTemplate);
                 }
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
-            
+
             }
         }
 
         public Boolean templateHasExistingCompletedAssessments()
-        {            
-            
+        {
+
             QueryExpression qe = new QueryExpression("gcbase_fundingcaseriskassessment");
             qe.Criteria.AddCondition("gcbase_risktemplate", ConditionOperator.Equal, _riskTemplate.Id);
-              
-            var optHelper = new helpers.OptionSetHelper();
+
+            var optHelper = new OptionSetHelper();
             int indexOfStatus = optHelper.getIndexOfLabel("gcbase_fundingcaseriskassessment", "statuscode", "Analyst Completed", _service);
 
             qe.Criteria.AddCondition("statuscode", ConditionOperator.Equal, indexOfStatus);
             var existingCompletedTemplates = _service.RetrieveMultiple(qe).Entities;
-           // throw new InvalidPluginExecutionException("asfsdafasd", ex1);  
+            // throw new InvalidPluginExecutionException("asfsdafasd", ex1);  
             if (existingCompletedTemplates.Count() > 0)
             {
                 return true;
@@ -271,3 +270,6 @@ namespace CrmGC.Plugins.Common_Modules
         }
     }
 }
+
+
+
